@@ -1,0 +1,56 @@
+
+USE prueba_empresas;
+
+
+CREATE TABLE COMPANY (
+  id_company INT PRIMARY KEY,
+  codigo_company VARCHAR(50) UNIQUE,
+  name_company VARCHAR(100),
+  description_company TEXT
+);
+
+
+CREATE TABLE APPLICATION (
+  app_id INT PRIMARY KEY,
+  app_code VARCHAR(50) UNIQUE,
+  app_name VARCHAR(100),
+  app_description TEXT
+);
+
+
+CREATE TABLE VERSION (
+  version_id INT PRIMARY KEY,
+  app_id INT,
+  version VARCHAR(20),
+  version_description TEXT,
+  UNIQUE (app_id), -- Solo una versión por aplicación
+  FOREIGN KEY (app_id) REFERENCES APPLICATION(app_id)
+);
+
+
+CREATE TABLE VERSION_COMPANY (
+  version_company_id INT PRIMARY KEY,
+  company_id INT,
+  version_id INT,
+  version_company_description TEXT,
+  UNIQUE (company_id), -- Solo una aplicación por compañía
+  FOREIGN KEY (company_id) REFERENCES COMPANY(id_company),
+  FOREIGN KEY (version_id) REFERENCES VERSION(version_id)
+);
+
+CREATE TABLE TMP_LLENAR_CAMPOS (
+  id_company INT,
+  codigo_company VARCHAR(50),
+  name_company VARCHAR(100),
+  description_company TEXT,
+  version_id INT,
+  app_id INT,
+  version VARCHAR(20),
+  version_description TEXT,
+  version_company_id INT,
+  company_id INT,
+  version_company_description TEXT,
+  app_code VARCHAR(50),
+  app_name VARCHAR(100),
+  app_description TEXT
+);
